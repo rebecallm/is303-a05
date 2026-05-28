@@ -1,0 +1,16 @@
+CLASS: Task
+RESPONSIBILITIES                    | COLLABORATORS
+------------------------------------|-------------
+Knows its name and category.        |
+Knows its priority level            |
+Can display itself as a string      |   
+Can mark itself as complete         |   
+
+CLASS: TaskList 
+RESPONSIBILITIES                    | COLLABORATORS
+------------------------------------|-------------
+Knows the tasklist name             |
+Can add a task                      | Task
+Can count incomplete                | Task
+Can filter by priority              | Task
+Can display the full task list      | Task

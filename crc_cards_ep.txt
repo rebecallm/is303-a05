@@ -1,0 +1,14 @@
+CLASS: Event 
+RESPONSIBILITIES                    | COLLABORATORS
+------------------------------------|-------------
+Knows its title and category.       |
+Knows its date and time.            |
+Can display itself as a string.     |    
+
+CLASS: Calendar  
+RESPONSIBILITIES                    | COLLABORATORS
+------------------------------------|-------------
+Knows the calendar name             |
+Can find events by date             | Event 
+Can check for overlapping events    | Event 
+Can display next upcoming event.    | Event 
