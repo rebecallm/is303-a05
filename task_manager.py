@@ -40,49 +40,69 @@ class Task:
 
 
 class TaskList:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
         self.tasks = []
 
-    def add_book(self, book):
-        """Add a Book object to the shelf."""
-        self.books.append(book)
+    def add_task(self, task):
+        """Adds a task to the list."""
+        self.tasks.append(task)
 
-    def get_average_pages(self):
-        """Return the average page count across all books."""
-        if len(self.books) == 0:
-            return 0
-        total = sum(book.pages for book in self.books)
-        return total / len(self.books)
+    def count_incomplete(self):
+        """Return count of incomplete tasks."""
+        count = 0 
+        for task in self.tasks: 
+            if task.completion == False:
+                count +=1 
+        return count 
 
-    def get_longest(self):
-        """Return the Book with the most pages."""
-        if len(self.books) == 0:
-            return None
-        longest = self.books[0]
-        for book in self.books:
-            if book.pages > longest.pages:
-                longest = book
-        return longest
-
+    def filter_by_priority(self, level):
+        """Return tasks with the specified priority level."""
+        return [task for task in self.tasks if task.level == level]
+    
+    def display(self):        
+        """Displays all tasks in the list."""
+        print("Task List:")
+        for task in self.tasks:
+            print(task)
+    
     def __str__(self):
-        header = f"Bookshelf: {self.name} ({len(self.books)} books)"
-        book_list = ""
-        for book in self.books:
-            book_list = book_list + f"\n  - {book}"
-        return header + book_list
+        """Displays the task list."""
+        return f"Task List: {len(self.tasks)} tasks, {self.count_incomplete()} incomplete"
 
+# ---Main Flow ---
+if __name__ == "__main__":
+    my_list = TaskList()
+    add_more = "yes"
 
-# --- Main Flow ---
+    while add_more == "yes":
+        name = input("Task name: ")
+        category = input("Category: ")
+        level = input("Priority (low/medium/high): ")
+        task = Task(name, category, level)
+        my_list.add_task(task) 
+        add_more = input("Add another task? yes/no: ").lower().strip() 
 
-shelf = Bookshelf("My Favorites")
+    #Mark a task as complete
+    mark = input("Which task would you like to mark as complete? (Enter task name): ")
+    for task in my_list.tasks:
+        if task.name == mark:
+            task.mark_complete()
+            print(f"Marked '{task.name}' as complete.")
+            break
+    else:
+        print("Task not found.")
 
-shelf.add_book(Book("The Hobbit", "J.R.R. Tolkien", 310))
-shelf.add_book(Book("Ender's Game", "Orson Scott Card", 324))
-shelf.add_book(Book("The Giver", "Lois Lowry", 208))
+    #filter by priority
+    priority_filter = input("Filter tasks by priority (low/medium/high): ")
+    filtered_tasks = my_list.filter_by_priority(priority_filter)
+    print(f"Tasks with {priority_filter} priority:")
+    for task in filtered_tasks:
+        print(task)
+    if not filtered_tasks:
+        print("No tasks found with that priority level.")
 
-print(shelf)
-print(f"\nAverage pages: {shelf.get_average_pages():.0f}")
+    #Display the updated task list
+    my_list.display()
+    print(f"Incomplete tasks: {my_list.count_incomplete()}")
 
-longest = shelf.get_longest()
-print(f"Longest book: {longest.title} ({longest.pages} pages)")
+        
