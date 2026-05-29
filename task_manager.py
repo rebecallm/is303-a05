@@ -12,7 +12,7 @@ Inputs:
 - Priority level (low, medium, high)
 
 Processes:
-- Task: stores a tasks's name, category, and priority level, and completion status
+- Task: stores a tasks's name, category, and priority level, and completion status. Includes mark_complete() and __str__().
 - TaskList: stores tasks in a list, can count incomplete tasks, filter tasks by priority
 and can display the full tasks list. 
 
@@ -88,9 +88,6 @@ if __name__ == "__main__":
         mark = input("Would you like to mark this task as completed yes/no: ").lower().strip()
         if mark == "yes":
             task.mark_complete()
-            print(f"Marked '{task.name}' as complete.")
-        else:
-            print(f"'{task.name}' remains incomplete.")
         add_more = input("Add another task? yes/no: ").lower().strip() 
 
     #filter by priority

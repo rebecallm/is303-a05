@@ -3,14 +3,16 @@ RESPONSIBILITIES                    | COLLABORATORS
 ------------------------------------|-------------
 Knows its name and category.        |
 Knows its priority level            |
-Can display itself as a string      |   
+Knows its completion status         |
 Can mark itself as complete         |   
+Can display itself as a string      |   
 
 CLASS: TaskList 
 RESPONSIBILITIES                    | COLLABORATORS
 ------------------------------------|-------------
-Knows the tasklist name             |
-Can add a task                      | Task
-Can count incomplete                | Task
+Stores a list of task objects       | Task 
+Can add a task to the list          | Task
+Can count incomplete tasks          | Task
 Can filter by priority              | Task
 Can display the full task list      | Task
+returns summary information as string| Task 
