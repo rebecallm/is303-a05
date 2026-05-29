@@ -34,9 +34,9 @@ class Task:
 
     def __str__(self):
         if self.completion == True:
-            return f"{self.name} (Category: {self.category}, Priority: {self.level}) - ✓"
+            return f"{self.name} (Category: {self.category}, Priority: {self.level})  ✓"
         else:
-            return f"{self.name} (Category: {self.category}, Priority: {self.level}) - ✗"
+            return f"{self.name} (Category: {self.category}, Priority: {self.level})  ✗"
 
 
 class TaskList:
@@ -57,7 +57,11 @@ class TaskList:
 
     def filter_by_priority(self, level):
         """Return tasks with the specified priority level."""
-        return [task for task in self.tasks if task.level == level]
+        filtered_tasks = []
+        for task in self.tasks:
+            if task.level.lower() == level.lower():
+                filtered_tasks.append(task)
+        return filtered_tasks
     
     def display(self):        
         """Displays all tasks in the list."""
@@ -75,25 +79,22 @@ if __name__ == "__main__":
     add_more = "yes"
 
     while add_more == "yes":
-        name = input("Task name: ")
-        category = input("Category: ")
-        level = input("Priority (low/medium/high): ")
+        name = input("Task name: ").lower().strip()
+        category = input("Category: ").lower().strip()
+        level = input("Priority (low/medium/high): ").lower().strip()
         task = Task(name, category, level)
         my_list.add_task(task) 
-        add_more = input("Add another task? yes/no: ").lower().strip() 
-
-    #Mark a task as complete
-    mark = input("Which task would you like to mark as complete? (Enter task name): ")
-    for task in my_list.tasks:
-        if task.name == mark:
+        # Mark a task as complete
+        mark = input("Would you like to mark this task as completed yes/no: ").lower().strip()
+        if mark == "yes":
             task.mark_complete()
             print(f"Marked '{task.name}' as complete.")
-            break
-    else:
-        print("Task not found.")
+        else:
+            print(f"'{task.name}' remains incomplete.")
+        add_more = input("Add another task? yes/no: ").lower().strip() 
 
     #filter by priority
-    priority_filter = input("Filter tasks by priority (low/medium/high): ")
+    priority_filter = input("Filter tasks by priority (low/medium/high): ").lower().strip()
     filtered_tasks = my_list.filter_by_priority(priority_filter)
     print(f"Tasks with {priority_filter} priority:")
     for task in filtered_tasks:
@@ -104,5 +105,6 @@ if __name__ == "__main__":
     #Display the updated task list
     my_list.display()
     print(f"Incomplete tasks: {my_list.count_incomplete()}")
+
 
         
