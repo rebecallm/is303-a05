@@ -12,3 +12,4 @@ Knows the calendar name             |
 Can find events by date             | Event 
 Can check for overlapping events    | Event 
 Can display next upcoming event.    | Event 
+Can display total events            | Event
